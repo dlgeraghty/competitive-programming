@@ -9,7 +9,21 @@
 ```
 
 ### Graphs:
-1. Shortest distances between every pair of vertices in a given edge weighted directed Graph:
+1. Representation of a graph:
+
+```
+//Adjacency list:
+
+vector<list<pair<int,int>>> adjList(vertices+1);
+
+for(int i = 0; i < entries; i++){
+  cin >> a >> b >> w;
+  adjList[a].push_back(make_pair(b, w));
+}
+
+```
+
+2. Shortest distances between every pair of vertices in a given edge weighted directed Graph:
 
 ```
 //Floyd warshall
