@@ -19,6 +19,7 @@ vector<list<pair<int,int>>> adjList(vertices+1);
 for(int i = 0; i < entries; i++){
   cin >> a >> b >> w;
   adjList[a].push_back(make_pair(b, w));
+  //adjList[b].push_back(make_pair(a,w)); //uncomment this line in undirected graphs only!
 }
 
 ```
