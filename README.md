@@ -2,6 +2,12 @@
 
 ## This readme file will only contain algorithms.
 
+### Include the whole std:
+
+```
+#include <bits/sdtc++.h>
+```
+
 ### Graphs:
 1. Shortest distances between every pair of vertices in a given edge weighted directed Graph:
 
