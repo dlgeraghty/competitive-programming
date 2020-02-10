@@ -30,6 +30,12 @@ public:
 	bool operator<(horas const & h) const {
 		return HH*3600 + MM*60 + SS < h.HH*3600 + h.MM*60 + h.SS;
 	}
+
+	bool operator==(horas const & h) const {
+		return HH*3600 + MM*60 + SS == h.HH*3600 + h.MM*60 + h.SS;
+	}
+
+
 	int toSeconds(int h, int m, int s){
 		return h*3600+m*60+s;
 	}
