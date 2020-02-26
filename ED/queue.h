@@ -20,7 +20,7 @@
 template <class T>
 class queue {
 protected:
-   
+
    /*
     Nodo que almacena internamente el elemento (de tipo T),
     y un puntero al nodo siguiente, que puede ser nullptr si
@@ -32,29 +32,29 @@ protected:
       T elem;
       Nodo * sig;
    };
-   
+
    // punteros al primer y último elemento
    Nodo * prim;
    Nodo * ult;
-   
+
    // número de elementos en la cola
    int nelems;
-   
+
 public:
-   
+
    // constructor: cola vacía
    queue() : prim(nullptr), ult(nullptr), nelems(0) {}
-   
+
    // destructor
    ~queue() {
       libera();
    }
-   
+
    // constructor por copia
    queue(queue<T> const& other) {
       copia(other);
    }
-   
+
    // operador de asignación
    queue<T> & operator=(queue<T> const& other) {
       if (this != &other) {
@@ -63,11 +63,11 @@ public:
       }
       return *this;
    }
-   
+
    // añadir un elemento al final de la cola
    void push(T const& elem) {
       Nodo * nuevo = new Nodo(elem);
-      
+
       if (ult != nullptr)
          ult->sig = nuevo;
       ult = nuevo;
@@ -75,14 +75,14 @@ public:
          prim = nuevo;
       ++nelems;
    }
-   
+
    // consultar el primero de la cola
    T const& front() const {
       if (empty())
          throw std::domain_error("la cola vacia no tiene primero");
       return prim->elem;
    }
-   
+
    // eliminar el primero de la cola
    void pop() {
       if (empty())
@@ -94,25 +94,15 @@ public:
       delete a_borrar;
       --nelems;
    }
-   
+
    // consultar si la cola está vacía
    bool empty() const {
       return nelems == 0;
    }
-   
+
    // consultar el tamaño de la cola
    int size() const {
       return nelems;
-   }
-
-   void duplicar(){
-   	Nodo *p = this->prim;
-	while(p != nullptr){
-		p->sig = new Nodo(p->elem, p->sig);
-		p = p->sig->sig;	//actualizar para la siguiente vuelta
-	}
-	this->ult = this->ult->sig;
-	this->nelems *= 2;
    }
 
    void print(){
@@ -122,9 +112,9 @@ public:
 		mostrar = mostrar->sig;
 	}
    }
-   
+
 protected:
-   
+
    void libera() {
       while (prim != nullptr) {
          Nodo * a_borrar = prim;
@@ -133,7 +123,7 @@ protected:
       }
       ult = nullptr;
    }
-   
+
    // this está sin inicializar
    void copia(queue const& other) {
       if (other.empty()) {
@@ -153,5 +143,6 @@ protected:
       }
    }
 };
+
 
 #endif // queue_eda_g
