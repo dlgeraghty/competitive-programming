@@ -22,6 +22,7 @@
 #include <vector>
 #include <queue>
 #include <iostream>
+#include <string>
 
 template <class T>
 class bintree {
