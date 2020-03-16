@@ -220,4 +220,17 @@ public:
 
 };
 
+template <class T>
+bintree<T> leerArbol(T vacio) {
+T raiz;
+std::cin >> raiz;
+if (raiz == vacio) { // es un árbol vacío
+return {};
+} else { // leer recursivamente los hijos
+auto iz = leerArbol(vacio);
+auto dr = leerArbol(vacio);
+return { iz, raiz, dr };
+}
+};
+
 #endif // bintree_eda_hc
