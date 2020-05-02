@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <unordered_set>
 #include <sstream>
 #include <cctype>
 #include <algorithm>
@@ -22,8 +23,8 @@ bool custom(const pair<string , int> &a, const pair<string, int> & b){
 int main(){
 
 	while(!cin.eof()){
-		unordered_map<string, vector<string>>	m;	//deporte: {alumno1, alumno2...}
-		unordered_map<string, string>		p;	//alumno: deporte
+		unordered_map<string, unordered_set<string>>	m;	//deporte: {alumno1, alumno2...}
+		unordered_map<string, string>		p;		//alumno: deporte
 
 		string s;
 		string key;
@@ -34,7 +35,7 @@ int main(){
 		while(s != "_FIN_"){
 			if(isAllUpperCase(s)){			//entonces es clave
 				key = s;			//me guardo la clave en un "tmp", solo por comodidad
-				m[key] = vector<string> ();	//creo la entrada en el mapa
+				m[key] = unordered_set<string>();	//creo la entrada en el mapa
 //				cout << "Analizando: " << key << endl;
 			}
 			else{					//es valor
@@ -42,15 +43,12 @@ int main(){
 					if(p.at(s) != key){	//si se repite en otro deporte, tenemos que borrarlo
 						auto itr = m.find(p.at(s));
 //						cout << "el alumno " << s << " ya esta apuntado en el deporte: " << p.at(s) << endl;
-						auto jtr = find(itr->second.begin(), itr->second.end(), s);
-						if(jtr != itr->second.end()){
-//							cout << "eimino" << endl;
-							itr->second.erase(jtr);
-						}
+						if(itr->second.find(s) != itr->second.end())
+							itr->second.erase(itr->second.find(s));
 					}
 
 				}else				//si el alumno no esta ya en el mapa
-					m[key].push_back(s);	//anado una entrada al mapa deporte:{...}
+					m[key].insert(s);	//anado una entrada al mapa deporte:{...}
 				p[s] = key;			//anado una entrada al mapa alumo:deporte
 			}
 			cin >> s;
