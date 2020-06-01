@@ -1,27 +1,34 @@
 
 #include <iostream>
-#include "queue.h"
+#include "deque_eda.h"
 
 using namespace std;
 
 template <class T>
-class ListaDuplica: public queue<T> {
-	using Nodo = typename queue<T>::Nodo;
+class ListaDuplica: public deque<T> {
+	using Nodo = typename deque<T>::Nodo;
 public:
 	void print() const{
-		Nodo * mostrar = this->prim;
-		for(int i = 0; i < this->nelems; i++){
+		Nodo * prim = this->fantasma->sig;
+		Nodo * ult = this->fantasma;
+		Nodo * mostrar = prim;
+		while(mostrar != ult){
 			cout << mostrar->elem << " ";
 			mostrar = mostrar->sig;
 		}
 	}
 	void duplicar(){
-		Nodo *p = this->prim;
-		while(p != nullptr){
-		p->sig = new Nodo(p->elem, p->sig);
-		p = p->sig->sig;	//actualizar para la siguiente vuelta
+		Nodo * prim = this->fantasma->sig;
+		Nodo * ult = this->fantasma;
+		Nodo *p = prim;
+		while(p != nullptr && p != ult){
+			Nodo * sig = p->sig;
+			Nodo * aux = new Nodo(p->elem, p, sig); 
+			p->sig = aux;
+			sig->ant = aux;
+			aux->ant = p;
+			p = sig;	//actualizar para la siguiente vuelta
 		}
-		this->ult = this->ult->sig;
 		this->nelems *= 2;
 	}
 };
@@ -33,8 +40,8 @@ int main(){
 	while(cin >> in ){
 		if(in != 0){
 			ListaDuplica<int> q;
-			q.push(in);
-			while(cin >> in && in!= 0) q.push(in);
+			q.push_back(in);
+			while(cin >> in && in!= 0) q.push_back(in);
 			q.duplicar();
 			q.print();
 		}
