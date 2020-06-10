@@ -3,6 +3,12 @@
 
 using namespace std;
 
+struct t{
+	int n = 0;
+	int h = 0;
+	int a = 0;
+};
+
 template <class T>
 class bintree_ext : public bintree<T> {
    using Link = typename bintree<T>::Link;
@@ -52,12 +58,32 @@ bintree_ext<T> leerArbol_ext(T vacio) {
       return {iz, raiz, dr};
    }
 }
+
+template <typename T>
+t solucion(bintree<T> a){
+
+	if(a.empty())
+	       return{0, 0, 0};	
+	if(a.left().empty() && a.right().empty())
+		return {1, 1, 1};
+	
+	t d = solucion(a.right());
+	t i = solucion(a.left());
+	int n = 1 + d.n + i.n;
+	int h = d.h + i.h;
+	int l = 1 + std::max(d.a , i.a);
+
+	return {n, h, l};
+}
+
 int main(){
 	int in;
 	cin >> in;
 	while(in--){
-		auto arbol = leerArbol_ext('.');
-		printf("%d %d %d\n" , arbol.nodos(), arbol.hojas(), arbol.altura());
+		auto arbol = leerArbol('.');
+		t s = solucion(arbol);
+//		printf("%li %li %li\n" , arbol.nodos(), arbol.hojas(), arbol.altura());
+		printf("%d %d %d\n", s.n , s.h, s.a);
 	}
 	return 0;
 }
