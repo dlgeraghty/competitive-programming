@@ -55,15 +55,25 @@ bintree_ext<T> leerArbol_ext(T vacio) {
       return {iz, raiz, dr};
    }
 }
+
+template <typename T>
+int frontera(bintree<T> a){
+	if(a.empty())
+		return 0;
+	if(a.left().empty() && a.right().empty()){
+		printf("%d ", a.root());
+		return 1;
+	}
+	return frontera(a.left()) + frontera(a.right());
+}
+
 int main(){
 	int in;
 	cin >> in;
 	while(in--){
-		auto arbol = leerArbol_ext(-1);
+		auto arbol = leerArbol(-1);
 		//printf("%d %d %d\n" , arbol.nodos(), arbol.hojas(), arbol.altura());
-		vector<int> w;
-		arbol.hojas(w);
-		for(int x: w) printf("%d ", x);
+		frontera(arbol);
 		printf("\n");
 
 	}
