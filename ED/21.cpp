@@ -70,19 +70,29 @@ bintree_ext<T> leerArbol_ext(T vacio) {
    }
 }
 
+template <typename T>
+T mini(bintree<T> a){
+	typename bintree<T>::const_iterator itr = a.begin();
+	T min = *itr;
+	for(itr = a.begin(); itr != a.end(); ++itr){
+		if(*itr < min) min = *itr;
+	}
+	return min;
+}
+
 int main(){
 	char c;
 	while(cin >> c){
 		if(c == 'N'){
-			auto arbolc = leerArbol_ext(-1);
+			auto arbolc = leerArbol(-1);
 			//printf("%d %d %d\n" , arbol.nodos(), arbol.hojas(), arbol.altura());
-			int w = arbolc.min();
+			int w = mini(arbolc);
 			printf("%d\n", w);
 		}
 		else if(c == 'P'){
-			bintree_ext<string> arbolp = leerArbol_ext(string("#"));
+			bintree<string> arbolp = leerArbol(string("#"));
 			string s;
-			s = arbolp.min();
+			s = mini(arbolp);
 			cout << s << endl;
 		}
 	}
