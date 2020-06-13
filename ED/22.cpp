@@ -79,13 +79,26 @@ bintree_ext<T> leerArbol_ext(T vacio) {
       return {iz, raiz, dr};
    }
 }
+
+template <typename T>
+par diametro(bintree<T> a){
+	par iz, dr, s;
+	if(a.empty()) return {-1, 0};
+	else{
+		iz = diametro(a.left());
+		dr = diametro(a.right());
+		s = {max(max(iz.a, dr.a), iz.b + dr.b), 1 + max(iz.b, dr.b)};
+	}
+	return s;
+}
+
 int main(){
 	int in;
 	cin >> in;
 	while(in--){
 		auto arbol = leerArbol_ext('.');
 		//printf("%d %d %d\n" , arbol.nodos(), arbol.hojas(), arbol.altura());
-		par s= arbol.diametro();
+		par s= diametro(arbol);
 		printf("%d\n", s.a + 1);
 
 	}
