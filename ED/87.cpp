@@ -3,27 +3,28 @@
 
 using namespace std;
 
-bool par(int x){
-	return x % 2 == 0;
-}
+struct t{
+	int mejor;
+	int raiz;
+};
 
 template <typename T>
-int pares(bintree<T> a){
+t pares(bintree<T> a){
 	if(a.empty())
-		return 0;
-	int l = pares(a.left());
-	int r = pares(a.right());
-	if(!a.left().empty()&& !a.right().empty() && par(a.root()) && par(a.left().root()) && par(a.right().root()))
-		return max(max(l+1, r+1), l+r+1);
-	if(par(a.root()))
-		return 1;
-	else 
-		return max(l,r);
+		return {0,0};
+	else{
+		t l = pares(a.left());
+		t r = pares(a.right());
+		if(a.root()% 2 == 1)
+			return {max(l.mejor, r.mejor), 0};
+		else
+			return {max(1 + l.raiz + r.raiz, max(l.raiz , r.raiz)), 1 + max(l.raiz , r.raiz)};
+	}
 }
 
 void resuelvecaso(){
 	auto a = leerArbol(-1);
-	printf("%d\n", pares(a));
+	printf("%d\n", pares(a).mejor);
 }
 
 int main(){
